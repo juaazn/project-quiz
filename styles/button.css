@@ -1,0 +1,10 @@
+.button {
+  width: 10rem;
+  height: 3.5rem;
+  background-color: var(--color-secundary);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+}
