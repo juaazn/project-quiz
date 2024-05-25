@@ -1,0 +1,40 @@
+/* imports */
+@import "./styles/layout.css";
+@import "./styles/banner.css";
+
+/* Remove default margin */
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul,
+menu,
+summary {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Reset styles for tag a */
+a {
+  display: block;
+  color: initial;
+  text-decoration: none;
+}
