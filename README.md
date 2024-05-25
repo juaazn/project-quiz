@@ -1,1 +1,1 @@
-# Proyecto Quiz
+# Proyect Quiz
