@@ -1,5 +1,1 @@
-function hello() {
-  console.log("Hello");
-}
-
-let h = 5;
+console.log("Hola");
