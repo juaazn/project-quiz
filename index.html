@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <script src="./main.js"></script>
+    <script type="module" src="./main.js"></script>
     <title>Quiz</title>
   </head>
   <body id="container">
@@ -13,8 +13,9 @@
       <div>
         <article class="card">
           <h2>iWelcome to the quiz!</h2>
-          <button class="button" type="button">Take the Quiz</button>
+          <button id="bt_start" class="button" type="button">Take the Quiz</button>
         </article>
+        <article class="questions"></article>
       </div>
     </main>
   </body>
