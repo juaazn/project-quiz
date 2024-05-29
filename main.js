@@ -1,58 +1,104 @@
 const btStartQuestions = document.querySelector("#bt_start");
-btStartQuestions.addEventListener("click", checkApi);
+btStartQuestions.addEventListener("click", startQuiz);
+
+//si queremos poder retomar el quizz tenemos que resetear el valor de estas variables
+let currentQuestionIndex = 0;
+let correctAnswersCount = 0;
+let questionsData = [];
 
 const printQuestions = document.querySelector(".questions");
 
-const URL = "https://opentdb.com/api.php?amount=20&difficulty=medium&type=multiple";
+const URL =
+  "https://opentdb.com/api.php?amount=20&difficulty=medium&type=multiple";
 
-function checkApi(event) {
-  event.preventDefault();
-  btStartQuestions.parentElement.style.display = "none";
+  async function startQuiz(event) {
+    event.preventDefault();
+    btStartQuestions.parentElement.style.display = "none";
+  
+    try {
+      const response = await fetch(URL);
+      const json = await response.json();
+      questionsData = json.results.slice(0, 1);
+      showQuestion();
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  }
+  
+  function showQuestion() {
+  
+    const questionData = questionsData[currentQuestionIndex];
+    const correctAnswer = questionData.correct_answer;
+    const allAnswers = [...questionData.incorrect_answers, correctAnswer];
+    allAnswers.sort(() => Math.random() - 0.5);
+  
+    const cardElement = document.createElement("div");
+    cardElement.setAttribute("class", "card text-center mb-3");
+    cardElement.style.width = "18rem";
+    cardElement.innerHTML = `
+      <div class="card-body">
+        <h5 class="card-title">${questionData.category}</h5>
+        <p class="card-text">${questionData.question}</p>`;
+  
+    allAnswers.forEach((answer) => {
+      cardElement.innerHTML += `<a href="#" class="btn btn-success">${answer}</a>`;
+    });
+  
+    cardElement.innerHTML += `<a href="#" class="btn btn-secondary" id="btnNext">Siguiente</a>
+      </div>`;
+  
+    printQuestions.appendChild(cardElement);
+  
+    validateAnswer(correctAnswer);
+  }
+  
 
-  fetch(URL)
-    .then((res) => res.json())
-    .then((json) => {
-      const { results } = json;
+function validateAnswer(correctAnswer) {
+  const buttons = document.querySelectorAll(".btn-success");
+  const btnNext = document.getElementById("btnNext");
 
-      results.forEach((item) => {
-        //recoger en array allAnswers las respuestas correctas e incorrectas
-        const allAnswers = [...item.incorrect_answers, item.correct_answer];
-        //randomiza posición
-        allAnswers.sort(() => Math.random() - 0.5);
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((btn) => btn.classList.remove("selected"));
+      button.classList.add("selected");
+      toggleBtnNext();
+    });
+  });
 
-        //creo la carta para agregar la pregunta
-        const cardElement = document.createElement("div");
-        cardElement.setAttribute("class", "card text-center mb-3");
-
-        cardElement.style.width = "18rem";
-
-        cardElement.innerHTML = `
-        <div class="card-body">
-          <h5 class="card-title">Category: ${item.category}</h5>
-          <p class="card-text">${item.question}</p>`;
-
-        //recorro array de respuestas y creo un botón por cada una de ellas
-        allAnswers.forEach((answer) => {
-          cardElement.innerHTML += `<a href="#" class="btn btn-primary">${answer}</a>`;
-        });
-
-        //añado el boton siguiente
-        cardElement.innerHTML += `<a href="#" class="btn btn-secondary" id="btnNext">Siguiente</a>
-        </div>`;
-
-        //se agrega la carta
-        printQuestions.appendChild(cardElement);
-
-        //recogemos el boton siguiente de la carta y le añadimos evento.
-        //cuando se clique se eliminará la carta
-        const btnNext = cardElement.querySelector("#btnNext");
-        btnNext.addEventListener("click", onNext);
-        function onNext(event) {
-          event.preventDefault();
-          printQuestions.removeChild(cardElement);
-          //comprobar respuesta y pasar a siguiente pregunta
+  if (btnNext) {
+    btnNext.addEventListener("click", () => {
+      const selectedButton = document.querySelector(".btn-success.selected");
+      if (selectedButton) {
+        if (selectedButton.textContent === correctAnswer) {
+          alert("¡Correcto!");
+          correctAnswersCount++;
+        } else {
+          alert("¡Incorrecto!");
         }
-      });
-    })
-    .catch((err) => console.log(err));
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questionsData.length) {
+          showQuestion();
+        } else {
+          endQuiz();
+        }
+      }
+    });
+  }
+}
+
+function toggleBtnNext() {
+  const buttons = document.querySelectorAll(".btn-success");
+  const btnNext = document.getElementById("btnNext");
+  const isAnyButtonSelected = Array.from(buttons).some((btn) =>
+    btn.classList.contains("selected")
+  );
+  if (btnNext) {
+    btnNext.disabled = !isAnyButtonSelected;
+  }
+}
+
+function endQuiz() {
+  printQuestions.innerHTML = `<p>¡Fin del cuestionario!</p>
+    <p>Respuestas correctas: ${correctAnswersCount}</p>`;
 }
