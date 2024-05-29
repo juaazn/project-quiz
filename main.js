@@ -8,50 +8,49 @@ let questionsData = [];
 
 const printQuestions = document.querySelector(".questions");
 
-const URL =
-  "https://opentdb.com/api.php?amount=20&difficulty=medium&type=multiple";
+const URL = "https://opentdb.com/api.php?amount=20&difficulty=medium&type=multiple";
 
-  async function startQuiz(event) {
-    event.preventDefault();
-    btStartQuestions.parentElement.style.display = "none";
-  
-    try {
-      const response = await fetch(URL);
-      const json = await response.json();
-      questionsData = json.results.slice(0, 1);
-      showQuestion();
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-    }
+async function startQuiz(event) {
+  event.preventDefault();
+  btStartQuestions.parentElement.style.display = "none";
+
+  try {
+    const response = await fetch(URL);
+    const json = await response.json();
+    //nº de preguntas que contendrá el cuestionario
+    questionsData = json.results.slice(0, 10);
+    showQuestion();
+  } catch (error) {
+    console.error("Error fetching questions:", error);
   }
-  
-  function showQuestion() {
-  
-    const questionData = questionsData[currentQuestionIndex];
-    const correctAnswer = questionData.correct_answer;
-    const allAnswers = [...questionData.incorrect_answers, correctAnswer];
-    allAnswers.sort(() => Math.random() - 0.5);
-  
-    const cardElement = document.createElement("div");
-    cardElement.setAttribute("class", "card text-center mb-3");
-    cardElement.style.width = "18rem";
-    cardElement.innerHTML = `
+}
+
+function showQuestion() {
+  const questionData = questionsData[currentQuestionIndex];
+  const correctAnswer = questionData.correct_answer;
+  const allAnswers = [...questionData.incorrect_answers, correctAnswer];
+  allAnswers.sort(() => Math.random() - 0.5);
+
+  const cardElement = document.createElement("div");
+  cardElement.setAttribute("class", "card text-center mb-3");
+  cardElement.style.width = "18rem";
+  cardElement.innerHTML = `
       <div class="card-body">
         <h5 class="card-title">${questionData.category}</h5>
         <p class="card-text">${questionData.question}</p>`;
-  
-    allAnswers.forEach((answer) => {
-      cardElement.innerHTML += `<a href="#" class="btn btn-success">${answer}</a>`;
-    });
-  
-    cardElement.innerHTML += `<a href="#" class="btn btn-secondary" id="btnNext">Siguiente</a>
+
+  allAnswers.forEach((answer) => {
+    cardElement.innerHTML += `<a href="#" class="btn btn-success">${answer}</a>`;
+  });
+
+  cardElement.innerHTML += `<a href="#" class="btn btn-secondary" id="btnNext">Siguiente</a>
       </div>`;
-  
-    printQuestions.appendChild(cardElement);
-  
-    validateAnswer(correctAnswer);
-  }
-  
+
+  printQuestions.innerHTML = "";
+  printQuestions.appendChild(cardElement);
+
+  validateAnswer(correctAnswer);
+}
 
 function validateAnswer(correctAnswer) {
   const buttons = document.querySelectorAll(".btn-success");
@@ -90,9 +89,7 @@ function validateAnswer(correctAnswer) {
 function toggleBtnNext() {
   const buttons = document.querySelectorAll(".btn-success");
   const btnNext = document.getElementById("btnNext");
-  const isAnyButtonSelected = Array.from(buttons).some((btn) =>
-    btn.classList.contains("selected")
-  );
+  const isAnyButtonSelected = buttons.some((btn) => btn.classList.contains("selected"));
   if (btnNext) {
     btnNext.disabled = !isAnyButtonSelected;
   }
