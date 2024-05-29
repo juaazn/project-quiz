@@ -91,7 +91,7 @@ function validateAnswer(correctAnswer) {
 function toggleBtnNext() {
   const buttons = document.querySelectorAll(".btn-success");
   const btnNext = document.getElementById("btnNext");
-  const isAnyButtonSelected = buttons.some((btn) => btn.classList.contains("selected"));
+  const isAnyButtonSelected = buttons.forEach((btn) => btn.classList.contains("selected"));
   if (btnNext) {
     btnNext.disabled = !isAnyButtonSelected;
   }
