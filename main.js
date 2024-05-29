@@ -1,3 +1,5 @@
+import { dataLocalStorage } from "./scripts/dataLocalStorage.js";
+
 const btStartQuestions = document.querySelector("#bt_start");
 btStartQuestions.addEventListener("click", startQuiz);
 
@@ -98,4 +100,5 @@ function toggleBtnNext() {
 function endQuiz() {
   printQuestions.innerHTML = `<p>¡Fin del cuestionario!</p>
     <p>Respuestas correctas: ${correctAnswersCount}</p>`;
+  dataLocalStorage(correctAnswersCount);
 }
