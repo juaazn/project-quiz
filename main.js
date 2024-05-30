@@ -41,10 +41,10 @@ function showQuestion() {
         <p class="card-text">${questionData.question}</p>`;
 
   allAnswers.forEach((answer) => {
-    cardElement.innerHTML += `<a href="#" class="btn btn-success">${answer}</a>`;
+    cardElement.innerHTML += `<a class="btn btn-success">${answer}</a>`;
   });
 
-  cardElement.innerHTML += `<a href="#" class="btn btn-secondary" id="btnNext">Siguiente</a>
+  cardElement.innerHTML += `<a class="btn btn-secondary" id="btnNext">Siguiente</a>
       </div>`;
 
   printQuestions.innerHTML = "";
