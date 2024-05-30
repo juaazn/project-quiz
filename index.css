@@ -2,6 +2,7 @@
 @import "./styles/layout.css";
 @import "./styles/button.css";
 @import "./styles/question-grid.css";
+@import "./styles/results.css";
 
 :root {
   --white: white;
