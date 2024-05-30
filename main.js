@@ -34,9 +34,8 @@ function showQuestion() {
 
   const cardElement = document.createElement("div");
   cardElement.setAttribute("class", "card text-center mb-3");
-  cardElement.style.width = "18rem";
   cardElement.innerHTML = `
-      <section class="card-body">
+      <section>
         <h5 class="card-title">${questionData.category}</h5>
         <p class="card-text">${questionData.question}</p>`;
 
