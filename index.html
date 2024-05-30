@@ -29,14 +29,14 @@
   <body id="container">
     <header id="banner"><h1>Quiz</h1></header>
     <main id="content">
-      <div>
-        <article class="card d-flex">
+      <article id="home" class="d-flex gap-5">
+        <section class="card col-6 d-flex flex-column justify-content-center align-items-center gap-5">
           <h2>Welcome to the quiz!</h2>
           <button id="bt_start" class="button" type="button">Take the Quiz</button>
-          <section class="card" id="chart"></section>
-        </article>
-        <article class="questions"></article>
-      </div>
+        </section>
+        <section class="card col-6" id="chart"></section>
+      </article>
+      <article class="questions"></article>
     </main>
   </body>
 </html>
