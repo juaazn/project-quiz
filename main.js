@@ -98,7 +98,23 @@ function toggleBtnNext() {
 }
 
 function endQuiz() {
-  printQuestions.innerHTML = `<p>¡Fin del cuestionario!</p>
-    <p>Respuestas correctas: ${correctAnswersCount}</p>`;
+  printQuestions.innerHTML = `
+    <article class="card d-flex flex-row gap-5">
+      <section class="results">
+        <div class="right_questions">
+          <p>${correctAnswersCount}</p>
+        </div>
+        <div class="results_line"></div>
+        <div class="total_questions">
+          <p>10</p>
+        </div>
+      </section>
+      <section class="w-50">
+        <h3>Aquí van tus resultados!</h3>
+        <p>Esto puede ser un texto personalizadode la puntuación</p>
+        <button type="button">Jugar otra vez</button>
+      </section>
+    </article>
+    `;
   dataLocalStorage(correctAnswersCount);
 }
