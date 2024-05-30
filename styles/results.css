@@ -1,0 +1,30 @@
+.results {
+  width: 18rem;
+  height: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.right_questions {
+  width: 8rem;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 5rem;
+}
+
+.results_line {
+  width: 8rem;
+  height: 0.2rem;
+  background-color: black;
+  transform: rotate(-30deg);
+}
+
+.total_questions {
+  width: 9rem;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 5rem;
+}
