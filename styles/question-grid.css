@@ -1,0 +1,7 @@
+.questions_grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 20rem 20rem;
+  grid-template-rows: 8rem 8rem;
+  align-items: center;
+}
