@@ -14,7 +14,7 @@ const URL = "https://opentdb.com/api.php?amount=20&difficulty=medium&type=multip
 
 async function startQuiz(event) {
   event.preventDefault();
-  btStartQuestions.parentElement.style.display = "none";
+  document.querySelector("#home").remove();
 
   try {
     const response = await fetch(URL);
