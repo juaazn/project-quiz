@@ -37,13 +37,16 @@ function showQuestion() {
   cardElement.innerHTML = `
       <section>
         <h5 class="card-title">${questionData.category}</h5>
-        <p class="card-text">${questionData.question}</p>`;
-
-  allAnswers.forEach((answer) => {
-    cardElement.innerHTML += `<a class="btn btn-success">${answer}</a>`;
-  });
-
-  cardElement.innerHTML += `<a class="btn btn-secondary" id="btnNext">Siguiente</a>
+        <p class="card-text">${questionData.question}</p>
+        <div class="questions_grid">
+          ${allAnswers
+            .map(
+              (answer) =>
+                `<a class="d-flex justify-content-center align-items-center btn btn-success h-100">${answer}</a>`,
+            )
+            .join("")}
+        </div>
+        <a class="btn btn-secondary" id="btnNext">Siguiente</a>
       </section>`;
 
   printQuestions.innerHTML = "";
