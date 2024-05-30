@@ -36,7 +36,7 @@ function showQuestion() {
   cardElement.setAttribute("class", "card text-center mb-3");
   cardElement.style.width = "18rem";
   cardElement.innerHTML = `
-      <div class="card-body">
+      <section class="card-body">
         <h5 class="card-title">${questionData.category}</h5>
         <p class="card-text">${questionData.question}</p>`;
 
@@ -45,7 +45,7 @@ function showQuestion() {
   });
 
   cardElement.innerHTML += `<a class="btn btn-secondary" id="btnNext">Siguiente</a>
-      </div>`;
+      </section>`;
 
   printQuestions.innerHTML = "";
   printQuestions.appendChild(cardElement);
