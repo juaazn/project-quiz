@@ -32,11 +32,11 @@ function showQuestion() {
   allAnswers.sort(() => Math.random() - 0.5);
 
   const cardElement = document.createElement("div");
-  cardElement.setAttribute("class", "card text-center mb-3");
+  cardElement.setAttribute("class", "card text-center p-4");
   cardElement.innerHTML = `
-      <section>
-        <h5 class="card-title">${questionData.category}</h5>
-        <p class="card-text">${questionData.question}</p>
+      <section class="d-flex justify-content-center flex-column gap-4">
+        <h3 class="fw-bold">${questionData.category}</h3>
+        <p class="text-wrap">${questionData.question}</p>
         <div class="questions_grid">
           ${allAnswers
             .map(
@@ -45,7 +45,7 @@ function showQuestion() {
             )
             .join("")}
         </div>
-        <a class="btn btn-secondary" id="btnNext">Siguiente</a>
+        <a class="btn btn-secondary fw-bold" id="btnNext">Siguiente</a>
       </section>`;
 
   printQuestions.innerHTML = "";
