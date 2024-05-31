@@ -34,7 +34,7 @@ function showQuestion() {
   const cardElement = document.createElement("div");
   cardElement.setAttribute("class", "card text-center p-4");
   cardElement.innerHTML = `
-      <section class="d-flex justify-content-center flex-column gap-4">
+      <section class="d-flex justify-content-center flex-column gap-4 position-relative">
         <h3 class="fw-bold">${questionData.category}</h3>
         <p class="text-wrap">${questionData.question}</p>
         <div class="questions_grid">
@@ -67,20 +67,35 @@ function validateAnswer(correctAnswer) {
   if (btnNext) {
     btnNext.addEventListener("click", () => {
       const selectedButton = document.querySelector(".answer.selected");
+
       if (selectedButton) {
         if (selectedButton.textContent === correctAnswer) {
-          alert("¡Correcto!");
+          printQuestions.innerHTML += `
+            <div class="alert alert-success position-absolute" role="alert">
+              <p>This is a success alert—check it out!</p>
+            </div>`;
+          setTimeout(() => {
+            nextQuestion();
+          }, 2000);
           correctAnswersCount++;
         } else {
-          alert("¡Incorrecto!");
+          printQuestions.innerHTML += `
+            <div class="alert alert-danger position-absolute" role="alert">
+              <p>This is a success alert—check it out!</p>
+            </div>`;
+          setTimeout(() => {
+            nextQuestion();
+          }, 2000);
         }
-        currentQuestionIndex++;
 
-        if (currentQuestionIndex < questionsData.length) {
-          showQuestion();
-        } else {
-          endQuiz();
-        }
+        const nextQuestion = () => {
+          currentQuestionIndex++;
+          if (currentQuestionIndex < questionsData.length) {
+            showQuestion();
+          } else {
+            endQuiz();
+          }
+        };
       }
     });
   }
@@ -115,7 +130,6 @@ function endQuiz() {
         <div class="alignCenter">
           <a class="btn btn-secondary fw-bold" href="./index.html">Jugar otra vez</a>
         </div>
-        
       </section>
     </article>
     `;
