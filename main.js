@@ -10,7 +10,7 @@ let questionsData = [];
 
 const printQuestions = document.querySelector(".questions");
 
-const URL = "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple";
+const URL = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
 
 async function startQuiz() {
   document.querySelector("#home").remove();
@@ -38,12 +38,10 @@ function showQuestion() {
         <h3 class="fw-bold">${questionData.category}</h3>
         <p class="text-wrap">${questionData.question}</p>
         <div class="questions_grid">
-          ${allAnswers
-            .map(
-              (answer) =>
-                `<a class="d-flex justify-content-center align-items-center btn btn-success h-100">${answer}</a>`,
-            )
-            .join("")}
+          <a class="d-flex justify-content-center align-items-center btn btn-danger h-100 answer">${allAnswers[0]}</a>
+          <a class="d-flex justify-content-center align-items-center btn btn-warning h-100 answer">${allAnswers[1]}</a>
+          <a class="d-flex justify-content-center align-items-center btn btn-success h-100 answer">${allAnswers[2]}</a>
+          <a class="d-flex justify-content-center align-items-center btn btn-info h-100 answer">${allAnswers[3]}</a>         
         </div>
         <a class="btn btn-secondary fw-bold" id="btnNext">Siguiente</a>
       </section>`;
@@ -55,7 +53,7 @@ function showQuestion() {
 }
 
 function validateAnswer(correctAnswer) {
-  const buttons = document.querySelectorAll(".btn-success");
+  const buttons = document.querySelectorAll(".answer");
   const btnNext = document.getElementById("btnNext");
 
   buttons.forEach((button) => {
@@ -68,7 +66,7 @@ function validateAnswer(correctAnswer) {
 
   if (btnNext) {
     btnNext.addEventListener("click", () => {
-      const selectedButton = document.querySelector(".btn-success.selected");
+      const selectedButton = document.querySelector(".answer.selected");
       if (selectedButton) {
         if (selectedButton.textContent === correctAnswer) {
           alert("¡Correcto!");
@@ -76,8 +74,8 @@ function validateAnswer(correctAnswer) {
         } else {
           alert("¡Incorrecto!");
         }
-
         currentQuestionIndex++;
+
         if (currentQuestionIndex < questionsData.length) {
           showQuestion();
         } else {
@@ -89,7 +87,7 @@ function validateAnswer(correctAnswer) {
 }
 
 function toggleBtnNext() {
-  const buttons = document.querySelectorAll(".btn-success");
+  const buttons = document.querySelectorAll(".answer");
   const btnNext = document.getElementById("btnNext");
   const isAnyButtonSelected = buttons.forEach((btn) => btn.classList.contains("selected"));
   if (btnNext) {
@@ -99,7 +97,7 @@ function toggleBtnNext() {
 
 function endQuiz() {
   printQuestions.innerHTML = `
-    <article class="card d-flex flex-row gap-5">
+    <article class="card d-flex flex-row">
       <section class="results">
         <div class="right_questions">
           <p>${correctAnswersCount}</p>
@@ -109,32 +107,17 @@ function endQuiz() {
           <p>10</p>
         </div>
       </section>
-      <section class="w-50">
-        <h3>Aquí van tus resultados!</h3>
-        <p>Esto puede ser un texto personalizadode la puntuación</p>
-        <button type="button">Jugar otra vez</button>
+      <section class="w-50 card-body right">
+        <div class="alignLeft">
+          <h3>Aquí van tus resultados!</h3>
+          <p>Gracias por participar</p>
+        </div>
+        <div class="alignCenter">
+          <a class="btn btn-secondary fw-bold" href="./index.html">Jugar otra vez</a>
+        </div>
+        
       </section>
     </article>
     `;
   dataLocalStorage(correctAnswersCount);
-
-  printQuestions.innerHTML = `<p>¡Fin del cuestionario!</p>
-    <p>Respuestas correctas: ${correctAnswersCount}</p>`;
-
-  {
-    /* <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div> */
-  }
 }

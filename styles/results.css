@@ -28,3 +28,15 @@
   justify-content: flex-end;
   font-size: 5rem;
 }
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.alignLeft {
+  margin-bottom: 50px;
+}
+.alignCenter {
+  display: flex;
+  justify-content: center;
+}

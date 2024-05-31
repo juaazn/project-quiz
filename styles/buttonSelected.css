@@ -1,4 +1,16 @@
+.btn-danger.selected {
+  background-color: #89202b;
+  border-color: #89202b;
+}
+.btn-warning.selected {
+  background-color: #aa8108;
+  border-color: #aa8108;
+}
 .btn-success.selected {
   background-color: #104f1f;
   border-color: #104f1f;
+}
+.btn-info.selected {
+  background-color: #0c849c;
+  border-color: #0c849c;
 }
