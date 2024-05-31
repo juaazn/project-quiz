@@ -10,7 +10,7 @@ let questionsData = [];
 
 const printQuestions = document.querySelector(".questions");
 
-const URL = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
+const URL = "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple";
 
 async function startQuiz() {
   document.querySelector("#home").remove();
