@@ -16,7 +16,7 @@ Cada ronda cuenta con 10 preguntas a las cuales deberás de responder correctame
 #### Open Trivia Database
 
 ```http
-  https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple
+  https://opentdb.com/
 ```
 
 ## Authors
