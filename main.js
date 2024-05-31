@@ -1,4 +1,5 @@
 import { dataLocalStorage } from "./scripts/dataLocalStorage.js";
+import { randomInRange } from "./scripts/ramdonConfetti.js";
 
 const btStartQuestions = document.querySelector("#bt_start");
 btStartQuestions.addEventListener("click", startQuiz);
@@ -10,7 +11,7 @@ let questionsData = [];
 
 const printQuestions = document.querySelector(".questions");
 
-const URL = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
+const URL = "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple";
 
 async function startQuiz() {
   document.querySelector("#home").remove();
@@ -74,6 +75,12 @@ function validateAnswer(correctAnswer) {
             <div class="alert alert-success position-absolute" role="alert">
               <p>This is a success alert—check it out!</p>
             </div>`;
+          confetti({
+            angle: randomInRange(55, 125),
+            spread: randomInRange(50, 70),
+            particleCount: randomInRange(50, 100),
+            origin: { y: 0.6 },
+          });
           setTimeout(() => {
             nextQuestion();
           }, 2000);
@@ -83,9 +90,37 @@ function validateAnswer(correctAnswer) {
             <div class="alert alert-danger position-absolute" role="alert">
               <p>This is a success alert—check it out!</p>
             </div>`;
-          setTimeout(() => {
-            nextQuestion();
-          }, 2000);
+          const defaults = {
+            spread: 360,
+            ticks: 100,
+            gravity: 0,
+            decay: 0.94,
+            startVelocity: 30,
+          };
+
+          function shoot() {
+            confetti({
+              ...defaults,
+              particleCount: 30,
+              scalar: 1.2,
+              shapes: ["circle", "square"],
+              colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+            });
+          }
+          confetti({
+            ...defaults,
+            particleCount: 20,
+            scalar: 2,
+            shapes: ["emoji"],
+            shapeOptions: {
+              emoji: {
+                value: ["❌", "☠️"],
+              },
+            },
+          }),
+            setTimeout(() => {
+              nextQuestion();
+            }, 2000);
         }
 
         const nextQuestion = () => {
